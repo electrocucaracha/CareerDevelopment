@@ -11,5 +11,7 @@
 		<property name="hibernate.show_sql">true</property>
 
 		<mapping class="com.electrocucaracha.apps.cdp.models.Category" />
+		<mapping class="com.electrocucaracha.apps.cdp.models.Area" />
+		<mapping class="com.electrocucaracha.apps.cdp.models.Task" />
 	</session-factory>
 </hibernate-configuration>

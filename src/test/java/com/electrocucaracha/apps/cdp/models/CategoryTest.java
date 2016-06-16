@@ -63,4 +63,27 @@ public class CategoryTest {
 		assertEquals(count, result.size());
 	}
 
+	@Test
+	public void updateOneCategory() {
+		Category category = new Category("test", "Definition", 100.0, 50.0);
+		controller.create(category);
+		assertNotNull(category.getId());
+
+		String newCategory = "test2";
+		String newDefinition = "Definition2";
+		double newBudget = 50.0;
+		double newTime = 25.0;
+		category.setCategory(newCategory);
+		category.setDefinition(newDefinition);
+		category.setBudget(newBudget);
+		category.setTime(newTime);
+		controller.update(category);
+
+		Category updatedCategory = controller.get(category.getId());
+		assertEquals(updatedCategory.getCategory(), newCategory);
+		assertEquals(updatedCategory.getDefinition(), newDefinition);
+		assertTrue(updatedCategory.getBudget() == newBudget);
+		assertTrue(updatedCategory.getTime() == newTime);
+	}
+
 }

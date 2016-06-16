@@ -17,7 +17,7 @@ public class Category implements HasId {
 	private Double budget;
 	private Double time;
 	private String comments;
-	// private Goal[] goals;
+	private Area[] areas;
 
 	public Category() {
 	}
@@ -80,6 +80,14 @@ public class Category implements HasId {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
+	
+	public Area[] getAreas() {
+		return areas;
+	}
+
+	public void setAreas(Area[] areas) {
+		this.areas = areas;
+	}
 
 	@Override
 	public int hashCode() {
@@ -135,5 +143,4 @@ public class Category implements HasId {
 			return false;
 		return true;
 	}
-
 }

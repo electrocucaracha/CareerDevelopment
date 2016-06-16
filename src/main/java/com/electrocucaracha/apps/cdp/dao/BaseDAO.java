@@ -36,34 +36,38 @@ public abstract class BaseDAO<T extends HasId> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> retrieve() {
-		List<T> result = sessionFactory.openSession()
-				.createQuery("from " + this.typeOfT.getSimpleName())
-				.list();
-		
+		List<T> result = sessionFactory.openSession().createQuery("from " + this.typeOfT.getSimpleName()).list();
+
 		return result;
 	}
 
 	@SuppressWarnings("unchecked")
 	public T get(int id) {
 		T result = (T) sessionFactory.openSession()
-				.createQuery("from " + this.typeOfT.getSimpleName() + " where id = :id")
-				.setInteger("id", id)
+				.createQuery("from " + this.typeOfT.getSimpleName() + " where id = :id").setInteger("id", id)
 				.uniqueResult();
-		
+
 		return result;
 	}
 
 	private void delete(int id) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.createQuery("delete " + this.typeOfT.getSimpleName() + " where id = :id")
-			.setParameter("id", id)
-			.executeUpdate();
+		session.createQuery("delete " + this.typeOfT.getSimpleName() + " where id = :id").setParameter("id", id)
+				.executeUpdate();
 		session.getTransaction().commit();
 	}
 
 	public void delete(T model) {
 		this.delete(model.getId());
+	}
+
+	public void update(T model) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		session.update(model);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }
