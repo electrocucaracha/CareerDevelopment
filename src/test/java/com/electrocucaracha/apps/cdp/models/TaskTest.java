@@ -85,8 +85,8 @@ public class TaskTest {
 		Task updatedTask = controller.get(task.getId());
 		assertEquals(updatedTask.getTask(), newTask); 
 		assertEquals(updatedTask.getResource(), newResource);
-//		assertTrue(updatedTask.getProgress() == newProgress);
-//		assertTrue(updatedTask.getPrice() == newPrice);
+		assertTrue(updatedTask.getProgress() == newProgress);
+		assertTrue(updatedTask.getPrice() == newPrice);
 		assertEquals(updatedTask.getComments(), newComments);
 		
 	}

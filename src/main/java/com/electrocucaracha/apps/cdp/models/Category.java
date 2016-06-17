@@ -1,44 +1,30 @@
 package com.electrocucaracha.apps.cdp.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Arrays;
 
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "categories")
-public class Category implements HasId {
+public class Category extends BaseDbObject {
 
-	private Integer id;
 	private String category;
 	private String definition;
-	private Double budget;
-	private Double time;
+	private double budget;
+	private double time;
 	private String comments;
 	private Area[] areas;
 
 	public Category() {
 	}
 
-	public Category(String category, String definition, Double budget, Double time) {
+	public Category(String category, String definition, double budget, double time) {
 		super();
 		this.category = category;
 		this.definition = definition;
 		this.budget = budget;
 		this.time = time;
-	}
-
-	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getCategory() {
@@ -57,19 +43,19 @@ public class Category implements HasId {
 		this.definition = definition;
 	}
 
-	public Double getBudget() {
+	public double getBudget() {
 		return budget;
 	}
 
-	public void setBudget(Double budget) {
+	public void setBudget(double budget) {
 		this.budget = budget;
 	}
 
-	public Double getTime() {
+	public double getTime() {
 		return time;
 	}
 
-	public void setTime(Double time) {
+	public void setTime(double time) {
 		this.time = time;
 	}
 
@@ -80,7 +66,7 @@ public class Category implements HasId {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-	
+
 	public Area[] getAreas() {
 		return areas;
 	}
@@ -93,12 +79,16 @@ public class Category implements HasId {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((budget == null) ? 0 : budget.hashCode());
+		result = prime * result + Arrays.hashCode(areas);
+		long temp;
+		temp = Double.doubleToLongBits(budget);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((comments == null) ? 0 : comments.hashCode());
 		result = prime * result + ((definition == null) ? 0 : definition.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((time == null) ? 0 : time.hashCode());
+		result = prime * result + id;
+		temp = Double.doubleToLongBits(time);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -111,10 +101,9 @@ public class Category implements HasId {
 		if (getClass() != obj.getClass())
 			return false;
 		Category other = (Category) obj;
-		if (budget == null) {
-			if (other.budget != null)
-				return false;
-		} else if (!budget.equals(other.budget))
+		if (!Arrays.equals(areas, other.areas))
+			return false;
+		if (Double.doubleToLongBits(budget) != Double.doubleToLongBits(other.budget))
 			return false;
 		if (category == null) {
 			if (other.category != null)
@@ -131,16 +120,11 @@ public class Category implements HasId {
 				return false;
 		} else if (!definition.equals(other.definition))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id)
 			return false;
-		if (time == null) {
-			if (other.time != null)
-				return false;
-		} else if (!time.equals(other.time))
+		if (Double.doubleToLongBits(time) != Double.doubleToLongBits(other.time))
 			return false;
 		return true;
 	}
+
 }

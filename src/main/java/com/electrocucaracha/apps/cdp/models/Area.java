@@ -9,9 +9,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "areas")
-public class Area implements HasId {
+public class Area extends BaseDbObject {
 
-	private Integer id;
 	private String area;
 
 	public Area() {
@@ -21,17 +20,6 @@ public class Area implements HasId {
 	public Area(String area) {
 		super();
 		this.area = area;
-	}
-
-	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getArea() {
@@ -47,7 +35,7 @@ public class Area implements HasId {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((area == null) ? 0 : area.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + id;
 		return result;
 	}
 
@@ -65,11 +53,9 @@ public class Area implements HasId {
 				return false;
 		} else if (!area.equals(other.area))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id)
 			return false;
 		return true;
 	}
+
 }

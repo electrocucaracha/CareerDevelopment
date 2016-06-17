@@ -1,45 +1,29 @@
 package com.electrocucaracha.apps.cdp.models;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "tasks")
-public class Task implements HasId {
+public class Task extends BaseDbObject {
 
-	private Integer id;
 	private String task;
 	private String resource;
-	private Double progress;
-	private Double price;
+	private double progress;
+	private double price;
 	private String comments;
 
 	public Task() {
 
 	}
 
-	public Task(String task, String resource, Double progress, Double price, String comments) {
+	public Task(String task, String resource, double progress, double price, String comments) {
 		super();
 		this.task = task;
 		this.resource = resource;
 		this.progress = progress;
 		this.price = price;
 		this.comments = comments;
-	}
-
-	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getTask() {
@@ -58,19 +42,19 @@ public class Task implements HasId {
 		this.resource = resource;
 	}
 
-	public Double getProgress() {
+	public double getProgress() {
 		return progress;
 	}
 
-	public void setProgress(Double progress) {
+	public void setProgress(double progress) {
 		this.progress = progress;
 	}
 
-	public Double getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -87,9 +71,12 @@ public class Task implements HasId {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comments == null) ? 0 : comments.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((price == null) ? 0 : price.hashCode());
-		result = prime * result + ((progress == null) ? 0 : progress.hashCode());
+		result = prime * result + id;
+		long temp;
+		temp = Double.doubleToLongBits(price);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(progress);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((resource == null) ? 0 : resource.hashCode());
 		result = prime * result + ((task == null) ? 0 : task.hashCode());
 		return result;
@@ -109,20 +96,11 @@ public class Task implements HasId {
 				return false;
 		} else if (!comments.equals(other.comments))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id)
 			return false;
-		if (price == null) {
-			if (other.price != null)
-				return false;
-		} else if (!price.equals(other.price))
+		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;
-		if (progress == null) {
-			if (other.progress != null)
-				return false;
-		} else if (!progress.equals(other.progress))
+		if (Double.doubleToLongBits(progress) != Double.doubleToLongBits(other.progress))
 			return false;
 		if (resource == null) {
 			if (other.resource != null)
