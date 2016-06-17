@@ -33,15 +33,15 @@ public abstract class BaseDAO<T extends BaseDbObject> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public T get(int id) {
+	public T get(long id) {
 		T result = (T) getSessionFactory().openSession()
-				.createQuery("from " + this.typeOfT.getSimpleName() + " where id = :id").setInteger("id", id)
+				.createQuery("from " + this.typeOfT.getSimpleName() + " where id = :id").setLong("id", id)
 				.uniqueResult();
 
 		return result;
 	}
 
-	private void delete(int id) {
+	private void delete(long id) {
 		Session session = getSessionFactory().openSession();
 		session.beginTransaction();
 		session.createQuery("delete " + this.typeOfT.getSimpleName() + " where id = :id").setParameter("id", id)

@@ -86,7 +86,6 @@ public class Category extends BaseDbObject {
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((comments == null) ? 0 : comments.hashCode());
 		result = prime * result + ((definition == null) ? 0 : definition.hashCode());
-		result = prime * result + id;
 		temp = Double.doubleToLongBits(time);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
@@ -119,8 +118,6 @@ public class Category extends BaseDbObject {
 			if (other.definition != null)
 				return false;
 		} else if (!definition.equals(other.definition))
-			return false;
-		if (id != other.id)
 			return false;
 		if (Double.doubleToLongBits(time) != Double.doubleToLongBits(other.time))
 			return false;

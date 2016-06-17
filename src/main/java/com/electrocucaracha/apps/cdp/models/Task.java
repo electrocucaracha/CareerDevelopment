@@ -71,7 +71,6 @@ public class Task extends BaseDbObject {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comments == null) ? 0 : comments.hashCode());
-		result = prime * result + id;
 		long temp;
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -95,8 +94,6 @@ public class Task extends BaseDbObject {
 			if (other.comments != null)
 				return false;
 		} else if (!comments.equals(other.comments))
-			return false;
-		if (id != other.id)
 			return false;
 		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;

@@ -9,16 +9,16 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public abstract class BaseDbObject implements HasId {
 
-	protected int id;
+	protected long id;
 
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

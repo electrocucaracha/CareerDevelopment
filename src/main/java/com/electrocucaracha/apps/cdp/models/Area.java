@@ -1,11 +1,7 @@
 package com.electrocucaracha.apps.cdp.models;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "areas")
@@ -35,7 +31,6 @@ public class Area extends BaseDbObject {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((area == null) ? 0 : area.hashCode());
-		result = prime * result + id;
 		return result;
 	}
 
@@ -52,8 +47,6 @@ public class Area extends BaseDbObject {
 			if (other.area != null)
 				return false;
 		} else if (!area.equals(other.area))
-			return false;
-		if (id != other.id)
 			return false;
 		return true;
 	}
